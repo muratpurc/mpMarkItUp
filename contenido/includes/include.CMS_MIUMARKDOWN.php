@@ -28,6 +28,10 @@ if ($doedit == '1') {
     $oMarkUpEditing->redirectToEditView();
     exit();
 
+} elseif (isset($_GET['domarkituppreview']) && $_GET['domarkituppreview'] == '1') {
+
+    $oMarkUpEditing->renderPreview();
+
 } else {
 
     header("Content-Type: text/html; charset={$encoding[$lang]}");

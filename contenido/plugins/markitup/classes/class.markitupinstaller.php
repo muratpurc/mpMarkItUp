@@ -1,6 +1,6 @@
 <?php
 /**
- * Installer for markItUp Plugin, used by plugin setup.
+ * Contains installer for markItUp! plugin.
  *
  * @author      Murat Purc <murat@purc.de>
  * @copyright   © ww.purc.de
@@ -17,10 +17,7 @@ if (!class_exists('PluginSetupAbstract')) {
 
 
 /**
- * Installer for markItUp Plugin, used by plugin setup.
- *
- * Some features are taken over from initial functions.mod_rewrite_setup.php file beeing created by
- * Stefan Seifarth (aka stese).
+ * Installer for markItUp! plugin, used by plugin setup.
  *
  * @author      Murat Purc <murat@purc.de>
  * @copyright   © ww.purc.de

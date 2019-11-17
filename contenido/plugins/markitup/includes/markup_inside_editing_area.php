@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin markItUp CMS-Type inside editing area.
+ * Plugin markItUp! CMS-Type inside editing area.
  *
  * NOTE:
  * global variable $currentMarkupCmsType whick contains the current CMS-Type must be set before

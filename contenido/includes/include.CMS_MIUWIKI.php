@@ -14,7 +14,7 @@ defined('CON_FRAMEWORK') or die('Illegal call');
 plugin_include('markitup', 'classes/class.markup_cms_type_editing.php');
 
 $options = array(
-    'markup_name'  => 'textile',
+    'markup_name'  => 'wiki',
     'cmstype_name' => 'CMS_MIUWIKI',
     'parser_file'  => 'class.markup_wiki_parser.php',
     'parser_name'  => 'Markup_WikiParser',
@@ -27,6 +27,10 @@ if ($doedit == '1') {
     $oMarkUpEditing->save($CMS_MIUWIKI);
     $oMarkUpEditing->redirectToEditView();
     exit();
+
+} elseif (isset($_GET['domarkituppreview']) && $_GET['domarkituppreview'] == '1') {
+
+    $oMarkUpEditing->renderPreview();
 
 } else {
 

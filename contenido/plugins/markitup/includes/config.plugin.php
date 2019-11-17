@@ -12,11 +12,13 @@
 defined('CON_FRAMEWORK') or die('Illegal call');
 
 
+// the plugin is to be active only at the backend
 if (isset($GLOBALS['contenido'])) {
 
+    // we are in backend, process pluin initialization
+
     $mIU_pluginPath = $cfg['path']['contenido_fullhtml'] . $cfg['path']['plugins'] . 'markitup/';
-    
-    // we are in backend, include markitup functions
+
     plugin_include('markitup', 'includes/functions.markitup.php');
 
     $cfg['markitup']['emoticon_path'] = $mIU_pluginPath . '/_common/images/emoticon/';
@@ -27,7 +29,7 @@ if (isset($GLOBALS['contenido'])) {
 
     $cfg['markitup']['sets']['bbcode']['js_code'] = <<<CODE
     markItUpBbcodeSettings = {
-        previewParserPath:	'', // path to your BBCode parser
+        previewParserPath:	'{PREVIEWPARSERPATH}',
         markupSet: [
             {name:'Bold', key:'B', openWith:'[b]', closeWith:'[/b]'},
             {name:'Italic', key:'I', openWith:'[i]', closeWith:'[/i]'},
@@ -50,8 +52,8 @@ if (isset($GLOBALS['contenido'])) {
             {name:'Quotes', openWith:'[quote]', closeWith:'[/quote]'},
             {name:'Code', openWith:'[code]', closeWith:'[/code]'}, 
             {separator:'---------------' },
-            {name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } } //,
-//            {name:'Preview', className:"preview", call:'preview' }
+            {name:'Clean', className:"clean", replaceWith:function(markitup) { return markitup.selection.replace(/\[(.*?)\]/g, "") } },
+            {name:'Preview', className:"preview", call:'preview' }
         ]
     }
         
@@ -89,7 +91,7 @@ CODE;
     $cfg['markitup']['sets']['dotclear']['js_code'] = <<<CODE
 
     markItUpDotclearSettings = {
-        previewParserPath:	'', // path to your DotClear parser
+        previewParserPath:	'{PREVIEWPARSERPATH}',
         onShiftEnter:		{keepDefault:false, replaceWith:'%%%\\n'},
         onCtrlEnter:		{keepDefault:false, replaceWith:'\\n\\n'},
         markupSet: [
@@ -110,9 +112,9 @@ CODE;
             {name:'Link', key:"L", openWith:"[", closeWith:'|[![Url:!:http://]!]|[![Language:!:en]!]|[![Title]!]]', placeHolder:'Your text to link here...' }, 
             {separator:'---------------' },
             {name:'Quotes', openWith:'{{', closeWith:'}}'}, 
-            {name:'Code', openWith:'@@', closeWith:'@@'} //, 
-//            {separator:'---------------' },
-//            {name:'Preview', call:'preview', className:'preview'}
+            {name:'Code', openWith:'@@', closeWith:'@@'} , 
+            {separator:'---------------' },
+            {name:'Preview', call:'preview', className:'preview'}
         ]
     }
 
@@ -131,7 +133,7 @@ CODE;
     $cfg['markitup']['sets']['markdown']['js_code'] = <<<CODE
 
     markItUpMarkdownSettings = {
-        previewParserPath:  '',
+        previewParserPath:	'{PREVIEWPARSERPATH}',
         onShiftEnter:       {keepDefault:false, openWith:'\\n\\n'},
         markupSet: [
             {name:'First Level Heading', key:'1', placeHolder:'Your title here...', closeWith:function(markItUp) { return miu.markdownTitle(markItUp, '=') } },
@@ -153,9 +155,9 @@ CODE;
             {name:'Link', key:'L', openWith:'[', closeWith:']([![Url:!:http://]!] "[![Title]!]")', placeHolder:'Your text to link here...' },
             {separator:'---------------'},	
             {name:'Quotes', openWith:'> '},
-            {name:'Code Block / Code', openWith:'(!(\\\t|!|`)!)', closeWith:'(!(`)!)'} //,
-//            {separator:'---------------'},
-//            {name:'Preview', call:'preview', className:"preview"}*/
+            {name:'Code Block / Code', openWith:'(!(\\\t|!|`)!)', closeWith:'(!(`)!)'},
+            {separator:'---------------'},
+            {name:'Preview', call:'preview', className:"preview"}
         ]
     }
 
@@ -187,7 +189,7 @@ CODE;
     $cfg['markitup']['sets']['textile']['js_code'] = <<<CODE
 
     markItUpTextileSettings = {
-        previewParserPath:	'', // path to your Textile parser
+        previewParserPath:	'{PREVIEWPARSERPATH}',
         onShiftEnter:		{keepDefault:false, replaceWith:'\\n\\n'},
         markupSet: [
             {name:'Heading 1', key:'1', openWith:'h1(!(([![Class]!]))!). ', placeHolder:'Your title here...' },
@@ -209,9 +211,9 @@ CODE;
             {name:'Link', openWith:'"', closeWith:'([![Title]!])":[![Link:!:http://]!]', placeHolder:'Your text to link here...' },
             {separator:'---------------' },
             {name:'Quotes', openWith:'bq(!(([![Class]!])!)). '},
-            {name:'Code', openWith:'@', closeWith:'@'} //,
-//            {separator:'---------------' },
-//            {name:'Preview', call:'preview', className:'preview'}
+            {name:'Code', openWith:'@', closeWith:'@'},
+            {separator:'---------------' },
+            {name:'Preview', call:'preview', className:'preview'}
         ]
     }
 
@@ -229,7 +231,7 @@ CODE;
     $cfg['markitup']['sets']['texy']['js_code'] = <<<CODE
 
     markItUpTexySettings = {
-        previewParserPath:  '', // path to your Texy parser
+        previewParserPath:	'{PREVIEWPARSERPATH}',
         onShiftEnter:       {keepDefault:false, replaceWith:'\\n\\n'},
         markupSet: [
             {name:'Heading 1', key:'1', closeWith:function(markItUp) { return miu.texyTitle(markItUp, '#') }, placeHolder:'Your title here...', className:'h1'},
@@ -247,10 +249,10 @@ CODE;
             {name:'Link', openWith:'"', closeWith:'":[![Url:!:http://]!]', placeHolder:'Your text to link...', className:'link' },
             {separator:'---------------' },
             {name:'Quotes', openWith:'> ', className:'quotes'},
-            {name:'Code block/Code in-line', openWith:'(!(/---[![Language:!:html]!]\\n|!|`)!)', closeWith:'(!(\\n\\---\\n|!|`)!)', className:'code'},
-            {name:'Texy off', closeWith:'\'\'', openWith:'\'\'', className:'off', placeHolder:'No texty! in here!'} //,
-//            {separator:'---------------' },
-//            {name:'Preview', call:'preview', className:'preview'}
+            {name:'Code block/Code in-line', openWith:'(!(/---[![Language:!:html]!]\\n|!|`)!)', closeWith:'(!(\\n\\\\---\\n|!|`)!)', className:'code'},
+            {name:'Texy off', closeWith:'\'\'', openWith:'\'\'', className:'off', placeHolder:'No texty! in here!'},
+            {separator:'---------------' },
+            {name:'Preview', call:'preview', className:'preview'}
         ]
     }
 
@@ -280,7 +282,7 @@ CODE;
     $cfg['markitup']['sets']['wiki']['js_code'] = <<<CODE
 
     markItUpWikiSettings = {
-        previewParserPath:	'', // path to your Wiki parser
+        previewParserPath:	'{PREVIEWPARSERPATH}',
         onShiftEnter:		{keepDefault:false, replaceWith:'\\n\\n'},
         markupSet: [
             {name:'Heading 1', key:'1', openWith:'== ', closeWith:' ==', placeHolder:'Your title here...' },
@@ -301,9 +303,9 @@ CODE;
             {name:'Url', openWith:"[[![Url:!:http://]!] ", closeWith:']', placeHolder:'Your text to link here...' },
             {separator:'---------------' },
             {name:'Quotes', openWith:'(!(> |!|>)!)', placeHolder:''},
-            {name:'Code', openWith:'(!(<source lang="[![Language:!:php]!]">|!|<pre>)!)', closeWith:'(!(</source>|!|</pre>)!)'} //, 
-//            {separator:'---------------' },
-//            {name:'Preview', call:'preview', className:'preview'}
+            {name:'Code', openWith:'(!(<source lang="[![Language:!:php]!]">|!|<pre>)!)', closeWith:'(!(</source>|!|</pre>)!)'}, 
+            {separator:'---------------' },
+            {name:'Preview', call:'preview', className:'preview'}
         ]
     }
 

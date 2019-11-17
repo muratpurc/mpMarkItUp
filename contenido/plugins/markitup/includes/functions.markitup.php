@@ -12,6 +12,9 @@
 defined('CON_FRAMEWORK') or die('Illegal call');
 
 
+/**
+ * Stores the raw_value in content table, as a addition to Contenido function saveContentEntry().
+ */
 function markitup_saveContentEntry($iIdArtLang, $sType, $iTypeId, $sRawValue) {
     global $db, $auth, $cfg, $cfgClient, $client, $lang, $_cecRegistry;
 
@@ -45,7 +48,8 @@ function markitup_saveContentEntry($iIdArtLang, $sType, $iTypeId, $sRawValue) {
 /**
  * Extracts the available content-types from the database.
  *
- * Does the same job like the function getAvailableContentTypes() from Contenido.
+ * Does the same job like the function getAvailableContentTypes() from Contenido, but stores the 
+ * markup related raw_value content in addition to the Contenido function.
  *
  * Creates an array in global scope as follows:
  * - $a_content[type][number]     = content string

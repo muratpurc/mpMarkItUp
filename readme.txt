@@ -1,4 +1,4 @@
-markItUp! Plugin 0.0.1_alpha für Contenido 4.8.x
+markItUp! Plugin 0.0.1_beta für Contenido 4.8.x
 
 ####################################################################################################
 TOC (Table of contents)
@@ -6,6 +6,7 @@ TOC (Table of contents)
 - BESCHREIBUNG
 - CHANGELOG
 - FEATURES
+- BEKANNTE PROBLEME
 - VORAUSSETZUNGEN
 - INSTALLATION
 - WICHTIGES ZUM INHALT
@@ -31,18 +32,28 @@ Momentan bietet das Plugin Unterstützung für folgende Markups:
 - Texy
 - Wiki
 
-Da die Entwicklung in einem sehr frühen Stadium ist, kann es vorkommen dass manche Features nicht 
-ganz vollständig sind.
-
 
 
 ####################################################################################################
 CHANGELOG
 
+2009-01-02: markItUp! Plugin 0.0.1_beta for Contenido 4.8.x
+    * new: Added markup preview parser
+    * bugfix: Corrected Wiki markup set configuration and severeal minor fixes
 
 2008-12-26: markItUp! Plugin 0.0.1_alpha for Contenido 4.8.x
-    * first alpha release
+    * First alpha release
 
+
+
+####################################################################################################
+BEKANNTE PROBLEME
+
+Das Parsen von Texy-Markup funktioniert noch nicht richtig, eingegebene Inhalte werden nicht korrekt  
+in HTML umgewandelt.
+
+Es werden nicht alle Tags der Markupsprachen unterstützt, möglich sind einfache Tags wie Überschriften,
+Fett, Kursiv, Unterstrichen, Listen, Links, Bilder, usw.
 
 
 
