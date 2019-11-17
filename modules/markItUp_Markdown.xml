@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<module><name>markItUp_Markdown</name>
+<description>Module markItUp_Markdown for plugin markItUp
+
+Autor:   Murat Purc, murat@purc.de
+Version: 0.1</description>
+<type>Content</type>
+<input/>
+<output>&lt;?php
+/**
+ * Contenido module output for CMS-Type CMS_MIUMARKDOWN
+ *
+ * @author      Murat Purc &lt;murat@purc.de&gt;
+ * @copyright   © Murat Purc 2008
+ * @date        26.12.2008
+ * @package     Contenido
+ * @subpackage  markItUp
+ */
+
+$markItUpCode = &quot;CMS_MIUMARKDOWN[1]&quot;;
+echo $markItUpCode;
+unset($markItUpCode);
+
+?&gt;</output>
+</module>
