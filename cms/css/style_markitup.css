@@ -1,11 +1,10 @@
-@charset "ISO-8859-1";
 /**
  * Stylesheets for markItUp! preview page.
  *
- * @author      Murat Purc <murat@purc.de>
- * @copyright   © ww.purc.de
- * @package     Contenido
+ * @package     Plugin_markItUp
  * @subpackage  markItUp
+ * @author      Murat Purc <murat@purc.de>
+ * @copyright   Copyright (c) 2008-2011 Murat Purc (http://www.purc.de)
  */
 
 
@@ -38,3 +37,6 @@ h4 {font-size:130%;}
 ul {list-style-type:disc;}
 ol {list-style-type:decimal;}
 ul, ol {margin:0 1.5em 1.5em 1.5em;}
+
+strong {font-weight:bold;}
+em, i {font-style:italic;}

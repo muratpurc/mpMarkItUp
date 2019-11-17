@@ -1,17 +1,38 @@
 <?php
 /**
+ * Project:
+ * Contenido Content Management System
+ *
+ * Description:
  * Include file for editing content of type CMS_MIUWIKI.
  *
+ * Initializes the editing and renders view for editing and preview or redirects
+ * to backend view.
+ *
+ * Requirements:
+ * @con_php_req 5.0
+ *
+ *
+ * @package     Plugin_markItUp
+ * @subpackage  Inside_Editing
+ * @version     $Id$
  * @author      Murat Purc <murat@purc.de>
- * @copyright   © ww.purc.de
- * @package     Contenido
- * @subpackage  markItUp
+ * @copyright   Copyright (c) 2008-2010 Murat Purc (http://www.purc.de)
+ * @license     http://www.gnu.org/licenses/gpl-2.0.html - GNU General Public License, version 2
+ * @link        http://www.purc.de
+ *
+ * {@internal
+ *   created 2008-12-xx
+ *   $Id$
+ * }}
  */
 
 
 defined('CON_FRAMEWORK') or die('Illegal call');
 
+
 plugin_include('markitup', 'classes/class.markup_cms_type_editing.php');
+
 
 $options = array(
     'markup_name'  => 'wiki',

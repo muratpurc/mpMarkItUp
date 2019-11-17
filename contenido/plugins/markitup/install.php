@@ -1,22 +1,31 @@
 <?php
 /**
- * PLUGIN INSTALLER for Contenido >= 4.8
+ * Project:
+ * CONTENIDO Content Management System
  *
+ * Description:
+ * PLUGIN INSTALLER for CONTENIDO >= 4.8
+ *
+ * Requirements:
+ * @con_php_req 5.0
+ *
+ *
+ * @package     CONTENIDO
+ * @subpackage  PluginInstaller
+ * @version     0.5
  * @author      Martin Horwath (horwath@dayside.net)
  * @author      Paul Sauer (contenido@saueronline.de)
- * @author      Murat Purc (murat@purc.de)
- * @version     0.5
+ * @author      Murat Purc <murat@purc.de>
+ * @license     http://www.gnu.org/licenses/gpl-2.0.html - GNU General Public License, version 2
  * @since       File available since contenido release >= 4.8
- * @package     Contenido
- * @subpackage  Plugin installer
- *
  *
  * {@internal
- *     26.09.2004 - Martin Horwath <horwath@dayside.net> - maybe initial release
- *     10.10.2005 - unknown - unknown changes
- *     15.02.2006 - Paul Sauer <contenido@saueronline.de> - unknown changes
- *     12.09.2006 - Murat Purc <murat@purc.de> - some modifications, like simple templating
- *     26.10.2008 - Murat Purc <murat@purc.de> - XHTML, cleanup, etc.
+ *   26.09.2004 - Martin Horwath <horwath@dayside.net> - maybe initial release
+ *   10.10.2005 - unknown - unknown changes
+ *   15.02.2006 - Paul Sauer <contenido@saueronline.de> - unknown changes
+ *   12.09.2006 - Murat Purc <murat@purc.de> - some modifications, like simple templating
+ *   26.10.2008 - Murat Purc <murat@purc.de> - XHTML, cleanup, etc.
+ *   $Id: install.php 110 2010-02-16 14:28:22Z Murat $
  * }}
  */
 
@@ -24,13 +33,13 @@
 defined('CON_FRAMEWORK') or define('CON_FRAMEWORK', true);
 
 
-####################################################################################################
+################################################################################
 # Initialization
 
 $contenido_path = '../../';
 
 // include security class and check request variables
-include_once ($contenido_path . 'classes/class.security.php');
+include_once($contenido_path . 'classes/class.security.php');
 Contenido_Security::checkRequests();
 
 $cfg['debug']['installer'] = false;
@@ -44,7 +53,7 @@ $contenido_html = $aPath['path'];
 
 cInclude('includes', 'functions.general.php');
 
-$cfg["debug"]["backend_exectime"]["fullstart"] = getmicrotime();
+$cfg['debug']['backend_exectime']['fullstart'] = getmicrotime();
 
 cInclude('includes', 'functions.i18n.php');
 cInclude('includes', 'functions.api.php');
@@ -76,24 +85,40 @@ cInclude('includes', 'cfg_language_de.inc.php');
 // overwrite error reporting
 error_reporting (E_ALL ^ E_NOTICE);
 
-####################################################################################################
+################################################################################
 # Some installer classes
 
 // @todo: Outsource the classes below!
-
-class DB_Upgrade extends DB_Contenido {/*donut*/}
 
 /**
  * Plugin setup interface, each plugin installer class should implement this
  * interface.
  *
- * @author      Murat Purc (murat@purc.de)
- * @package     Contenido
+ * @package     CONTENIDO
  * @subpackage  PluginInstaller
+ * @author      Murat Purc <murat@purc.de>
+ * @copyright   Copyright (c) 2008-2011 Murat Purc (http://www.purc.de)
  */
 interface IPluginSetup {
+    /**
+     * Installs plugin.
+     *
+     * @return  void
+     */
     public function install();
+
+    /**
+     * Updates plugin.
+     *
+     * @return  void
+     */
     public function upgrade();
+
+    /**
+     * Uninstalls plugin.
+     *
+     * @return  void
+     */
     public function uninstall();
 }
 
@@ -101,13 +126,28 @@ interface IPluginSetup {
  * Abstract plugin setup base class, each plugin installer should extend this
  * class.
  *
- * @author      Murat Purc (murat@purc.de)
- * @package     Contenido
+ * @package     CONTENIDO
  * @subpackage  PluginInstaller
+ * @author      Murat Purc <murat@purc.de>
+ * @copyright   Copyright (c) 2008-2011 Murat Purc (http://www.purc.de)
  */
 abstract class PluginSetupAbstract {
+    /**
+     * CONTENIDO configuration array
+     * @var  array
+     */
     protected $_cfg;
+
+    /**
+     * Database instance
+     * @var  DB_Contenido
+     */
     protected $_db;
+
+    /**
+     * Constructor, sets some properties-
+     * @return  void
+     */
     public function __construct(){
         $this->_cfg = $GLOBALS['cfg']; // damn globals
         $this->_db  = new DB_Contenido();
@@ -117,11 +157,21 @@ abstract class PluginSetupAbstract {
 /**
  * Final plugin setup factory class
  *
- * @author      Murat Purc (murat@purc.de)
- * @package     Contenido
+ * @package     CONTENIDO
  * @subpackage  PluginInstaller
+ * @author      Murat Purc <murat@purc.de>
+ * @copyright   Copyright (c) 2008-2011 Murat Purc (http://www.purc.de)
  */
 final class PluginSetupFactory {
+    /**
+     * Returns the plugin installer instance.
+     * Note:
+     * The file contains installer clas must be included before!
+     *
+     * @param   string  $className  Classname of plugin installer to instantiate.
+     * @return  IPluginSetup
+     * @throws  Exception  If classname is missing.
+     */
     public static function getInstaller($className) {
         if (!class_exists($className)) {
             throw new Exception('PluginSetupFactory:getInstaller() Class "' . $className . '" doesn\'t exists, include classfile before calling factory');
@@ -131,10 +181,10 @@ final class PluginSetupFactory {
 }
 
 
-####################################################################################################
+################################################################################
 # Main installer process
 
-$cfg["debug"]["backend_exectime"]["start"] = getmicrotime();
+$cfg['debug']['backend_exectime']['start'] = getmicrotime();
 
 // include markItUp installer
 plugin_include('markitup', 'classes/class.markitupinstaller.php');
@@ -151,12 +201,12 @@ $data['content']     = '';
 $data['bottom']      = '';
 $data['body_bottom'] = '';
 
-$sBackendLink = '<br /><a href="' . $contenido_html . '?contenido=' . $contenido . '" title="Switch to backend">Switch to Contenido backend</a>' . "\n";
+$sBackendLink = '<br /><a href="' . $contenido_html . '?contenido=' . $contenido . '" title="Switch to backend">Switch to CONTENIDO backend</a>' . "\n";
 
 if ($bCheckTableStatus) {
     $aRequiredFields = array(
-        "idplugin", "name", "version", "author", "idinternal", "url",
-        "status", "description", "install", "uninstall", "date"
+        'idplugin', 'name', 'version', 'author', 'idinternal', 'url',
+        'status', 'description', 'install', 'uninstall', 'date'
     );
 
 //    $sRequiredTable = "DROP TABLE " . $cfg['tab']['plugins'] . ";
@@ -174,14 +224,15 @@ if ($bCheckTableStatus) {
                           uninstall TEXT,
                           date DATETIME NOT NULL default '0000-00-00 00:00:00',
                           PRIMARY KEY (idplugin)
-                      ) TYPE=MyISAM;";
+                      ) ENGINE=MyISAM;";
     // now we check if the plugin table has the right format...
-    msg("Checking status " . $cfg['tab']['plugins']);
+    msg('Checking status ' . $cfg['tab']['plugins']);
     $aPluginTableMeta = $db->metadata($cfg['tab']['plugins']);
 
+    $aFoundKeys = array();
     foreach ($aPluginTableMeta as $key) {
         if (!in_array($key['name'], $aRequiredFields)) {
-            msg($key['name'] . " (this key can be deleted)", "unused key");
+            msg($key['name'] . ' (this key can be deleted)', 'unused key');
         } else {
             $aAvailableKeys[] = $key['name'];
         }
@@ -189,7 +240,7 @@ if ($bCheckTableStatus) {
     }
     foreach ($aRequiredFields as $key) {
         if (!in_array($key, $aFoundKeys)) {
-            msg($key . " (this key must be added)", "missing key");
+            msg($key . ' (this key must be added)', 'missing key');
             $aMissingKeys[] = $key;
         }
     }
@@ -202,13 +253,13 @@ if ($bCheckTableStatus) {
     if (count($aMissingKeys) > 0) {
         $sSqlData   = remove_remarks($sRequiredTable);
         $aSqlPieces = split_sql_file($sSqlData, ';');
-        msg(count($aSqlPieces) . " queries", "Executing:");
+        msg(count($aSqlPieces) . ' queries', 'Executing:');
         foreach ($aSqlPieces as $sqlinit) {
             $db->query($sqlinit);
             msg($sqlinit);
         }
     } else {
-        msg("ok");
+        msg('ok');
     }
 }
 
@@ -218,8 +269,8 @@ updateSequence();
 
 if ($installsql = file_get_contents('install.sql')) {
     // get info from sql file
-    if (preg_match ("/####(.*)####/i", $installsql, $pinfo)) {
-        $pinfo = explode (";", $pinfo[1]);
+    if (preg_match('/####(.*)####/i', $installsql, $pinfo)) {
+        $pinfo = explode(';', $pinfo[1]);
         // take some nice names easier to work with...
         $pname       = $pinfo[0];
         $pversion    = $pinfo[1];
@@ -235,13 +286,13 @@ if ($installsql = file_get_contents('install.sql')) {
         $data['content'] .= "<br />\n";
 
         // the user don't need this info...
-        $installsql = preg_replace ("/####(.*)####/i", "", $installsql);
+        $installsql = preg_replace('/####(.*)####/i', '', $installsql);
 
         $pstatus = true;
     } else {
-        $data['content'] .= "Info missing. First line of install.sql should include following line:<br />";
-        $data['content'] .= "<strong>####NAME;VERSION;AUTHOR;INTERNAL_ID####</strong><br />";
-        $data['content'] .= "No further action takes place<br />";
+        $data['content'] .= 'Info missing. First line of install.sql should include following line:<br />';
+        $data['content'] .= '<strong>####NAME;VERSION;AUTHOR;INTERNAL_ID####</strong><br />';
+        $data['content'] .= 'No further action takes place<br />';
 
         $pstatus = false;
     }
@@ -250,41 +301,41 @@ if ($installsql = file_get_contents('install.sql')) {
     $sql = "SELECT * FROM " . $cfg["tab"]["plugins"] . " WHERE idinternal='" . $pinternalid . "';";
     $db->query($sql);
     if ($db->next_record()) {
-        $mode     = "update";
+        $mode     = 'update';
         $message .= "Plugin with this internal id allready exists in table.<br />\n";
         if ($pversion == $db->f('version')) {
             $message .= "This version is allready installed.<br />\n";
-            $mode     = "uninstall";
+            $mode     = 'uninstall';
         } else {
             $message .= "Switching to upgrade mode.<br />\n";
         }
         $pluginid = $db->f('idplugin');
     } else {
-        $mode     = "install";
-        $message .= "No plugin with this internal id exists in table.<br />\n";
+        $mode     = 'install';
+        $message .= 'No plugin with this internal id exists in table.<br />' . "\n";
         $pluginid = false;
     }
 
     if (!$install && !$uninstall) {
-        $data['content'] .= "<br />" . $message;
+        $data['content'] .= '<br />' . $message;
     }
 
-    if (!$install && $mode == "update") {
+    if (!$install && $mode == 'update') {
         $data['content'] .= "<br /><a class=\"submit\" href=\"$PHP_SELF?install=1&amp;contenido=$contenido\" title=\"Update plugin\">Update $pname $pversion</a><br />\n";
     }
 
-    if (!$install && $mode == "install") {
+    if (!$install && $mode == 'install') {
         $data['content'] .= "<br /><a class=\"submit\" href=\"$PHP_SELF?install=1&amp;contenido=$contenido\" title=\"Install plugin\">Install $pname $pversion</a><br />\n";
     }
 
-    if (!$uninstall && $mode == "uninstall") {
+    if (!$uninstall && $mode == 'uninstall') {
         $data['content'] .= "<br /><a class=\"submit\" href=\"$PHP_SELF?uninstall=1&amp;contenido=$contenido\" title=\"UnInstall plugin\">UnInstall $pname $pversion</a><br />\n";
         $data['content'] .= "<br /><br /><strong>Note:</strong><br />";
         $data['content'] .= "The UnInstaller will only remove plugin related entries from database (plugins table). Any done changes on directories or files must be reset manually.<br />";
     }
 
     if ($uninstall && $pluginid) {
-        $sql = "SELECT uninstall FROM " . $cfg["tab"]["plugins"] . " WHERE idplugin='" . $pluginid . "'";
+        $sql = "SELECT uninstall FROM " . $cfg['tab']['plugins'] . " WHERE idplugin='" . $pluginid . "'";
         msg($sql);
         $db->query($sql);
         $db->next_record();
@@ -293,7 +344,7 @@ if ($installsql = file_get_contents('install.sql')) {
         $sSqlData     = remove_remarks($uninstallsql);
         $aSqlPieces   = split_sql_file($sSqlData, ';');
 
-        msg(count($aSqlPieces)." queries", "Executing:");
+        msg(count($aSqlPieces).' queries', 'Executing:');
         foreach ($aSqlPieces as $sqlinit) {
             $db->query($sqlinit);
             msg($sqlinit);
@@ -305,24 +356,24 @@ if ($installsql = file_get_contents('install.sql')) {
     }
 
     if ($pstatus && $install) {
-        if ($mode == "install") { // insert all data from install.sql
-            $pluginid = $db->nextid($cfg["tab"]["plugins"]); // get next free id using phplib method
+        if ($mode == 'install') { // insert all data from install.sql
+            $pluginid = $db->nextid($cfg['tab']['plugins']); // get next free id using phplib method
 
             $PID = 100 + $pluginid; // generate !PID! replacement
             $replace = array('!PREFIX!' => $cfg['sql']['sqlprefix'], '!PID!' => $PID);
 
             $installsql = strtr($installsql, $replace);
 
-            $sql = "INSERT INTO " . $cfg["tab"]["plugins"] . " (idplugin,name,`version`,author,idinternal,`status`,`date`) VALUES ('" . $pluginid . "','" . $pname . "','" . $pversion . "','" . $pauthor . "','" . $pinternalid . "','0','" . date("Y-m-d H:i:s") . "');";
-            $uninstallsql = "DELETE FROM " . $cfg["tab"]["plugins"] . " WHERE idplugin='" . $pluginid . "';\r\n";
-            msg($sql, "Insert statement for plugin: ");
+            $sql = "INSERT INTO " . $cfg['tab']['plugins'] . " (idplugin,name,`version`,author,idinternal,`status`,`date`) VALUES ('" . $pluginid . "','" . $pname . "','" . $pversion . "','" . $pauthor . "','" . $pinternalid . "','0','" . date("Y-m-d H:i:s") . "');";
+            $uninstallsql = "DELETE FROM " . $cfg['tab']['plugins'] . " WHERE idplugin='" . $pluginid . "';\r\n";
+            msg($sql, 'Insert statement for plugin: ');
             $db->query($sql);
 
-            msg ($installsql, "Install query:");
+            msg($installsql, 'Install query:');
 
             $sSqlData   = remove_remarks($installsql);
             $aSqlPieces = split_sql_file($sSqlData, ';');
-            msg(count($aSqlPieces) . " queries", "Executing:");
+            msg(count($aSqlPieces) . ' queries', 'Executing:');
             foreach ($aSqlPieces as $sqlinit) {
                 // $sqlinit = strtr($sqlinit, $replace);
                 // create uninstall.sql for each insert entry
@@ -343,10 +394,10 @@ if ($installsql = file_get_contents('install.sql')) {
                 $data['content'] .= "I found uninstall.sql in " . dirname(__FILE__) . "<br />Statements added to uninstall query.<br />\n";
             }
 
-            msg ($uninstallsql, "Uninstall query:");
+            msg($uninstallsql, 'Uninstall query:');
 
-            $sql = "UPDATE " . $cfg["tab"]["plugins"] . " SET install=0x" . bin2hex($installsql) . ", uninstall=0x" . bin2hex($uninstallsql) . " WHERE (idplugin='" . $pluginid . "');";
-            msg($sql, "un/install statements stored");
+            $sql = "UPDATE " . $cfg['tab']['plugins'] . " SET install=0x" . bin2hex($installsql) . ", uninstall=0x" . bin2hex($uninstallsql) . " WHERE (idplugin='" . $pluginid . "');";
+            msg($sql, 'un/install statements stored');
             $db->query($sql);
 
             $oPluginInstaller->install();
@@ -354,14 +405,12 @@ if ($installsql = file_get_contents('install.sql')) {
             $data['content'] .= "<br /><strong>Install complete.</strong><br />\n";
         }
 
-        if ($mode == "update") {
-            $sql  = "UPDATE " . $cfg["tab"]["plugins"] . " SET\n";
-            $sql .= " version = '" . $pversion . "'\n";
-            $sql .= "WHERE (idplugin='" . $pluginid . "');";
-            msg($sql, "Store new plugin version: ");
+        if ($mode == 'update') {
+            $sql  = "UPDATE " . $cfg['tab']['plugins'] . " SET version = '" . $pversion . "' WHERE (idplugin='" . $pluginid . "');";
+            msg($sql, 'Store new plugin version: ');
             $db->query($sql);
             if ($updatesqlfile = @file_get_contents('update.sql')) {
-                $sql = "SELECT uninstall FROM " . $cfg["tab"]["plugins"] . " WHERE idplugin='" . $pluginid . "'";
+                $sql = "SELECT uninstall FROM " . $cfg['tab']['plugins'] . " WHERE idplugin='" . $pluginid . "'";
                 msg($sql, "Getting stored uninstall statements: ");
                 $db->query($sql);
                 $db->next_record();
@@ -376,16 +425,16 @@ if ($installsql = file_get_contents('install.sql')) {
                 $updatesql .= strtr($updatesqlfile, $replace); // add to generated sql
 
                 $aSqlPieces = split_sql_file($updatesql, ';');
-                msg(count($aSqlPieces) . " queries", "Executing:");
+                msg(count($aSqlPieces) . ' queries', 'Executing:');
                 foreach ($aSqlPieces as $sqlinit) {
                     // $sqlinit = strtr($sqlinit, $replace);
                     // create uninstall.sql for each insert entry
                     if (preg_match("/INSERT\s+INTO\s+(.*)\s+VALUES\s*\([´\"'\s]*(\d+)/i", $sqlinit, $tmpsql)) {
-                        $tmpidname    = $db->metadata(trim(str_replace("`", "", $tmpsql[1])));
+                        $tmpidname    = $db->metadata(trim(str_replace('`', '', $tmpsql[1])));
                         $tmpidname    = $tmpidname[0]['name'];
                         $uninstallsql = "DELETE FROM " . trim($tmpsql[1]) . " WHERE " . $tmpidname . "='" . trim($tmpsql[2]) . "';\r\n" . $uninstallsql;
                     } else if (preg_match("/REPLACE \s+INTO\s+(.*)\s+VALUES\s*\([´\"'\s]*(\d+)/i", $sqlinit, $tmpsql)) {
-                        $tmpidname    = $db->metadata(trim(str_replace("`", "", $tmpsql[1])));
+                        $tmpidname    = $db->metadata(trim(str_replace('`', '', $tmpsql[1])));
                         $tmpidname    = $tmpidname[0]['name'];
                         $uninstallsql = "DELETE FROM " . trim($tmpsql[1]) . " WHERE " . $tmpidname . "='" . trim($tmpsql[2]) . "';\r\n" . $uninstallsql;
                     }
@@ -393,36 +442,36 @@ if ($installsql = file_get_contents('install.sql')) {
                     $db->query($sqlinit);
                     msg($sqlinit);
                 }
-                $sql = "UPDATE " . $cfg["tab"]["plugins"] . " SET uninstall = 0x" . bin2hex($uninstallsql) . " WHERE (idplugin='" . $pluginid . "');";
-                msg($sql, "New uninstall statements stored: ");
+                $sql = "UPDATE " . $cfg['tab']['plugins'] . " SET uninstall = 0x" . bin2hex($uninstallsql) . " WHERE (idplugin='" . $pluginid . "');";
+                msg($sql, 'New uninstall statements stored: ');
                 $db->query($sql);
             }
 
             $oPluginInstaller->upgrade();
 
-            $data['content'] .= "<br /><strong>Update complete.</strong><br />\n";
+            $data['content'] .= '<br /><strong>Update complete.</strong><br />' . "\n";
         }
 
         // con_sequence update
         updateSequence();
     }
 } else {
-    $data['content'] .= "Sorry i found no install.sql in " . dirname(__FILE__) . "<br />\n";
+    $data['content'] .= 'Sorry i found no install.sql in ' . dirname(__FILE__) . '<br />' . "\n";
 }
 
 
 $data['bottom']      .= $sBackendLink;
 $data['body_bottom']  = getDebugMsg();
 
-$cfg["debug"]["backend_exectime"]["end"] = getmicrotime();
+$cfg['debug']['backend_exectime']['end'] = getmicrotime();
 
-if ($cfg["debug"]["rendering"] == true) {
-    $data['body_bottom'] .= "Rendering this page took: " . ($cfg["debug"]["backend_exectime"]["end"] - $cfg["debug"]["backend_exectime"]["start"]) . " seconds<br />";
-    $data['body_bottom'] .= "Building the complete page took: " . ($cfg["debug"]["backend_exectime"]["end"] - $cfg["debug"]["backend_exectime"]["fullstart"]) . " seconds<br />";
+if ($cfg['debug']['rendering'] == true) {
+    $data['body_bottom'] .= 'Rendering this page took: ' . ($cfg['debug']['backend_exectime']['end'] - $cfg['debug']['backend_exectime']['start']) . ' seconds<br />';
+    $data['body_bottom'] .= 'Building the complete page took: ' . ($cfg['debug']['backend_exectime']['end'] - $cfg['debug']['backend_exectime']['fullstart']) . ' seconds<br />';
 
-    if (function_exists("memory_get_usage")) {
-        $data['body_bottom'] .= "Include memory usage: " . human_readable_size(memory_get_usage() - $cfg["debug"]["oldmemusage"]) . "<br />";
-        $data['body_bottom'] .= "Complete memory usage: " . human_readable_size(memory_get_usage()) . "<br />";
+    if (function_exists('memory_get_usage')) {
+        $data['body_bottom'] .= 'Include memory usage: ' . human_readable_size(memory_get_usage() - $cfg['debug']['oldmemusage']) . '<br />';
+        $data['body_bottom'] .= 'Complete memory usage: ' . human_readable_size(memory_get_usage()) . '<br />';
     }
 }
 
@@ -430,7 +479,7 @@ if ($cfg["debug"]["rendering"] == true) {
 page_close();
 
 
-####################################################################################################
+################################################################################
 ##### Output
 
 echo <<<HTML
@@ -463,8 +512,8 @@ echo <<<HTML
 
 <div id="wrap">
     <div id="head">
-      <a id="head_logo" href="{$contenido_html}?contenido=$contenido" title="Switch to Contenido backend">
-        <img src="{$contenido_html}images/conlogo.gif" alt="Contenido Logo" /></a>
+      <a id="head_logo" href="{$contenido_html}?contenido=$contenido" title="Switch to CONTENIDO backend">
+        <img src="{$contenido_html}images/conlogo.gif" alt="CONTENIDO Logo" /></a>
     </div>
     <br class="clear" />
 
@@ -487,7 +536,7 @@ echo <<<HTML
 HTML;
 
 
-####################################################################################################
+################################################################################
 ##### Functions
 
 // some functions to work with...
@@ -501,17 +550,17 @@ HTML;
 function remove_remarks($sql) {
     $lines = explode("\n", $sql);
     // try to keep mem. use down
-    $sql = "";
+    $sql = '';
 
     $linecount = count($lines);
-    $output = "";
+    $output = '';
 
     for ($i = 0; $i < $linecount; $i++) {
         if (($i != ($linecount - 1)) || (strlen($lines[$i]) > 0)) {
-            $output .= ($lines[$i][0] != "#")  ? $lines[$i]."\n" : "\n";
+            $output .= ($lines[$i][0] != '#') ? $lines[$i] . "\n" : "\n";
 
             // Trading a bit of speed for lower mem. use here.
-            $lines[$i] = "";
+            $lines[$i] = '';
         }
     }
     return $output;
@@ -528,7 +577,7 @@ function split_sql_file($sql, $delimiter) {
   // Split up our string into "possible" SQL statements.
   $tokens = explode($delimiter, $sql);
   // try to save mem.
-  $sql = "";
+  $sql = '';
   $output = array();
   // we don't actually care about the matches preg gives us.
   $matches = array();
@@ -549,13 +598,13 @@ function split_sql_file($sql, $delimiter) {
         // It's a complete sql statement.
         $output[] = $tokens[$i];
         // save memory.
-        $tokens[$i] = "";
+        $tokens[$i] = '';
       } else {
         // incomplete sql statement. keep adding tokens until we have a complete one.
         // $temp will hold what we have so far.
         $temp = $tokens[$i] . $delimiter;
         // save memory..
-        $tokens[$i] = "";
+        $tokens[$i] = '';
         // Do we have a complete statement yet?
         $complete_stmt = false;
 
@@ -573,8 +622,8 @@ function split_sql_file($sql, $delimiter) {
             // statement(s), we now have a complete statement. (2 odds always make an even)
             $output[] = $temp . $tokens[$j];
             // save memory.
-            $tokens[$j] = "";
-            $temp = "";
+            $tokens[$j] = '';
+            $temp = '';
             // exit the loop.
             $complete_stmt = true;
             // make sure the outer loop continues at the right point.
@@ -584,7 +633,7 @@ function split_sql_file($sql, $delimiter) {
             // (1 odd and 1 even always make an odd)
             $temp .= $tokens[$j] . $delimiter;
             // save memory.
-            $tokens[$j] = "";
+            $tokens[$j] = '';
           }
         } // for..
       } // else
@@ -596,15 +645,16 @@ function split_sql_file($sql, $delimiter) {
 
 // simple function to update con_sequence
 function updateSequence($table = false) {
-    global $db, $cfg;
+    global $db, $db2, $cfg;
+
     if (!$table) {
-        $sql = "SHOW TABLES";
+        $sql = 'SHOW TABLES';
         $db->query($sql);
         while ($db->next_record()) {
-            dbUpdateSequence($cfg['sql']['sqlprefix'] . "_sequence", $db->f(0));
+            dbUpdateSequence($cfg['sql']['sqlprefix'] . '_sequence', $db->f(0), $db2);
         }
     } else {
-        dbUpdateSequence($cfg['sql']['sqlprefix'] . "_sequence", $table);
+        dbUpdateSequence($cfg['sql']['sqlprefix'] . '_sequence', $table, $db2);
     }
 }
 
@@ -612,10 +662,10 @@ function updateSequence($table = false) {
 // read out next free id * deprecated
 function getSequenceId($table) {
     global $db2, $cfg;
-    $sql = "SELECT nextid FROM " . $cfg['sql']['sqlprefix'] . "_sequence" . " where seq_name = '$table'";
+    $sql = "SELECT nextid FROM " . $cfg['sql']['sqlprefix'] . "_sequence" . " WHERE seq_name = '$table'";
     $db2->query($sql);
     if ($db2->next_record()) {
-        return ($db2->f("nextid") + 1);
+        return ($db2->f('nextid') + 1);
     } else {
         msg($table, "missing in " . $cfg['sql']['sqlprefix'] . "_sequence");
         return 0;
@@ -626,29 +676,25 @@ function getSequenceId($table) {
 // debug functions
 function msg($value, $info = false) {
     global $cfg;
-    if (trim($cfg["debug"]["messages"]) == "") $cfg["debug"]["messages"] = "<br /><strong>DEBUG:</strong>";
-    if (!$cfg["debug"]["installer"]) {
+    if (trim($cfg['debug']['messages']) == '') $cfg['debug']['messages'] = "<br /><strong>DEBUG:</strong>";
+    if (!$cfg['debug']['installer']) {
         return;
     }
     if ($info) {
-        $cfg["debug"]["messages"] .= "<strong>$info</strong> -> ";
+        $cfg['debug']['messages'] .= "<strong>$info</strong> -> ";
     }
     if (is_array($value)) {
-        ob_start();
-        print_r($value);
-        $output = ob_get_contents();
-        ob_end_clean();
-        $cfg["debug"]["messages"] .= "<pre>" . htmlspecialchars($output) . "</pre>";
-    } else {
-        $cfg["debug"]["messages"] .= htmlspecialchars($value) . "<br />";
+        $value = print_r($value, true);
     }
+    $cfg['debug']['messages'] .= htmlspecialchars($value) . "<br />";
 }
+
 
 function getDebugMsg() {
     global $cfg;
-    if ($cfg["debug"]["installer"]) {
+    if ($cfg['debug']['installer']) {
         return "<div style=\"font-family: Verdana, Arial, Helvetica, Sans-Serif; font-size: 11px; color: #000000\">"
-            . $cfg["debug"]["messages"]
+            . $cfg['debug']['messages']
             . "</div>";
     } else {
         return '';
@@ -665,20 +711,12 @@ function getDebugMsg() {
  *
  * Copied from /setup/lib/functions.filesystem.php
  *
- * @param $file string	Path to the file, accepts absolute and relative files
+ * @param $file string    Path to the file, accepts absolute and relative files
  * @return boolean true if the file exists and is writeable, false otherwise
  */
 function isWriteable($file) {
     clearstatcache();
-    if (!file_exists($file)) {
-        return false;
-    }
-
-    $bStatus = is_writable($file);
-    /* PHP 4.0.4 workaround */
-    settype($bStatus, "boolean");
-
-    return $bStatus;
+    return (file_exists($file)) ? is_writable($file) : false;
 }
 
 

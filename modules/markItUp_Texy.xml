@@ -8,12 +8,12 @@ Version: 0.1</description>
 <input/>
 <output>&lt;?php
 /**
- * Contenido module output for CMS-Type CMS_MIUTEXY
+ * CONTENIDO module output for CMS-Type CMS_MIUTEXY
  *
  * @author      Murat Purc &lt;murat@purc.de&gt;
- * @copyright   © Murat Purc 2008
+ * @copyright   Copyright (c) 2008-2011 Murat Purc
  * @date        26.12.2008
- * @package     Contenido
+ * @package     CONTENIDO
  * @subpackage  markItUp
  */
 

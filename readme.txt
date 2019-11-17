@@ -1,12 +1,12 @@
-markItUp! Plugin 0.0.1_beta2 für Contenido Contenido 4.8.x
+markItUp! Plugin 0.1 für CONTENIDO 4.8.x
 
 ####################################################################################################
 TOC (Table of contents)
 
 - BESCHREIBUNG
 - CHANGELOG
-- FEATURES
 - BEKANNTE PROBLEME
+- FEATURES
 - VORAUSSETZUNGEN
 - INSTALLATION
 - WICHTIGES ZUM INHALT
@@ -22,7 +22,7 @@ markItUp! ist ein auf jQuery basierender universeller Markup-Editor, der mit ver
 sogar möglich, die Unterstützung für eine eigene Auszeichnungssprache zu implementieren.
 
 
-Für das Contenido-CMS wurde markItUp! als Plugin entwickelt, um die Möglichkeiten des Editierens im 
+Für das CONTENIDO-CMS wurde markItUp! als Plugin entwickelt, um die Möglichkeiten des Editierens im 
 Backend über die vorhandenen wysiwyg-Editoren hinaus zu erweitern.
 
 Momentan bietet das Plugin Unterstützung für folgende Markups:
@@ -35,33 +35,42 @@ Momentan bietet das Plugin Unterstützung für folgende Markups:
 
 
 ####################################################################################################
-CHANGELOG
+BEKANNTE PROBLEME
 
-2009-02-12: markItUp! Plugin 0.0.1_beta2 (for Contenido 4.8.x)
-    * new: Added preview CSS file
-    * change: Modified Texy markup set
+Es werden nicht alle Tags in allen Markupsprachen unterstützt, möglich sind einfache Tags 
+wie Überschriften, Fett, Kursiv, Unterstrichen, Listen, Links, Bilder, usw.
 
-2009-01-02: markItUp! Plugin 0.0.1_beta (for Contenido 4.8.x)
-    * new: Added markup preview parser
-    * bugfix: Corrected Wiki markup set configuration and severeal minor fixes
-
-2008-12-26: markItUp! Plugin 0.0.1_alpha (for Contenido 4.8.x)
-    * First alpha release
+Empfohlen wird der Einsatz der Markups Markdown, Textile und Text, da die Parser für 
+diese Markupsprachen am weitesten Entwickelt sind.
 
 
 
 ####################################################################################################
-BEKANNTE PROBLEME
+CHANGELOG
 
-Es werden nicht alle Tags der Markupsprachen unterstützt, möglich sind einfache Tags wie Überschriften,
-Fett, Kursiv, Unterstrichen, Listen, Links, Bilder, usw.
+2011-12-13: markItUp! Plugin 0.1 (for CONTENIDO 4.8.x)
+    * new: Cheatcheet files for BBCode, Markdown, Textile and Texy
+    * change: Updated to markItUp! 1.1.12
+    * change: Updated parser for BBCode, Markdown, Textile and Texy
+    * change: Some other improvements
+
+2009-02-12: markItUp! Plugin 0.0.1_beta2 (for CONTENIDO 4.8.x)
+    * new: Added preview CSS file
+    * change: Modified Texy markup set
+
+2009-01-02: markItUp! Plugin 0.0.1_beta (for CONTENIDO 4.8.x)
+    * new: Added markup preview parser
+    * bugfix: Corrected Wiki markup set configuration and severeal minor fixes
+
+2008-12-26: markItUp! Plugin 0.0.1_alpha (for CONTENIDO 4.8.x)
+    * First alpha release
 
 
 
 ####################################################################################################
 FEATURES
 
-- Erweitert Contenido um weitere CMS-Typen für Auszeichnungssprachen
+- Erweitert CONTENIDO um weitere CMS-Typen für Auszeichnungssprachen
 - Inhalte lassen sich über den markItUp!-Editor bearbeiten
 - Bietet Unterstützung für die Auszeichnungsprachen BBCode, Markdown, Textile, Texy, Wiki
 
@@ -70,14 +79,14 @@ FEATURES
 ####################################################################################################
 VORAUSSETZUNGEN
 
-- Alle Voraussetzungen von Contenido 4.8.x gelten auch für das Plugin
+- Alle Voraussetzungen von CONTENIDO 4.8.x gelten auch für das Plugin
 
 
 
 ####################################################################################################
 INSTALLATION
 
-- Dateien aus dem Plugin-Package in die entsprechenden Contenido-Verzeichnisse kopieren.
+- Dateien aus dem Plugin-Package in die entsprechenden CONTENIDO-Verzeichnisse kopieren.
   Ausnahme sind Dateien im Ordner "modules", diese sind Modulexporte und werden gesondert installiert.
 
 - In die Adresszeile des Browsers http://localhost/contenido/plugins/markitup/install.php 
@@ -86,7 +95,7 @@ INSTALLATION
 
 - Im Backend anmelden
   TIP: Sollte der Plugininstaller nach der Anmeldung nicht erscheinen, kann die URL zum Installer 
-  manuell aufgerufen werden. Der URL muss die aktuell gültige Contenido Session-ID angehängt werden.
+  manuell aufgerufen werden. Der URL muss die aktuell gültige CONTENIDO Session-ID angehängt werden.
   Beispiel: http://localhost/contenido/plugins/markitup/install.php?contenido={my_session_id}
   
 - markItUp Plugin installieren 
@@ -111,13 +120,13 @@ WICHTIGES ZUM INHALT
 
 modules:
 --------
-Enthält exportierte Module im XML-Format. Diese Exportdateien können im Contenido Backend unter 
+Enthält exportierte Module im XML-Format. Diese Exportdateien können im CONTENIDO Backend unter 
 "Style -> Module" importiert werden.
 
 
 cms/css/style_markitup.css:
 ---------------------------
-Stylesheet Datei für die Vorschau.
+Stylesheet Datei im Mandantenverzeichnis für die Vorschau.
 
 
 contenido/plugins/markitup/*:

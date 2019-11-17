@@ -1,0 +1,187 @@
+<div class="cheatsheet">
+
+<h3>Cheatsheet</h3>
+
+<p>Full syntax description available at <a href="http://texy.info/en/syntax" class="linkExternal" onclick="window.open(this.href);return false;">Texy</a> page.</p>
+
+<div class="block">
+<strong>Paragraphs</strong>
+<pre><code>Lorem ipsum dolor sit amet,
+still the same paragraph.
+
+Second paragraph</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Headings</strong>
+<p>One way:</p>
+<pre><code>Main title
+**************
+
+Subtitle
+==========</code></pre>
+<p>Second way:</p>
+<pre><code>=== Main title ===
+
+## Subtitle ##
+
+## or same subtitle</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Horizontal line</strong>
+<pre><code>--------
+
+********</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Code</strong>
+<pre><code>/---code php
+  function reImage($matches) {
+    $content = $matches[1];
+    $align = $matches[5];
+    $href = $matches[6];
+  }
+\---</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Disable Texy</strong>
+<pre><code>/---html
+  <em>test</em>: **this is not strong**
+\---
+
+/---text
+  <em>test</em>: **this is not strong**
+\---</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Div</strong>
+<pre><code>/---div .[header]
+
+  content of div
+
+\---</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Block quotes</strong>
+<pre><code>> This is a blockquote with two paragraphs.
+>
+> 640 K should be enough for everyone
+>
+>:http://www.microsoft.com</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Links</strong>
+<pre><code>Look at homepage:[http://texy.info].
+
+Do you know "Nette":http://nette.org?
+
+"Write me":me@example.com</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>References</strong>
+<pre><code>[homepage]: http://texy.info/ Texy .(homepage)
+[la trine]: http://latrine.dgx.cz
+
+This is [homepage]
+
+Look at [this site | la trine]</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Images</strong>
+<pre><code>[* image.gif *]</code></pre>
+<p>Aligned images:</p>
+<pre><code>[* image.gif <] Left-aligned image. Lorem ipsum ...
+
+[* image.gif >] Right-aligned image. Curabitur quam ...</code></pre>
+<p>With dimensions</p>
+<pre><code>[* image.gif 10x20 *]</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Phrases</strong>
+<pre><code>*emphasis*
+
+**strong emphasis**
+
+***stronger emphasis***
+
+^^superscript^^ vs. __subscript__
+
+Quotes: >>Lorem Ipsum Dolores<<:www.lipsum.com
+
+Cite: As ~~Frank Borland~~ said, ...</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Lists</strong>
+<p>Unordered:</p>
+<pre><code>-   Red
+-   Green
+-   Blue</code></pre>
+<p>Ordered:</p>
+<pre><code>1)  One
+2)  Two
+3)  Three
+
+a)  One
+b)  Two
+c)  Three
+
+A)  DOS
+B)  Windows
+C)  Linux
+
+I)  Yesterday
+II)  Today
+III)  Tomorrow</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Definition list</strong>
+<pre><code>Concert Divokej Bill:
+    - when: 9. 12. 2004
+    - where: Brno
+    - Price: EUR 26</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Acronym</strong>
+<pre><code>PHP ((PHP: Hypertext Preprocessor))
+W3C ((World Wide Web Consortium))</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong>Tables</strong>
+<pre><code>| first col | second col | third col
+| Adam      | Eva        | Franta</code></pre>
+</div>
+<hr />
+
+<div class="block">
+<strong></strong>
+<pre><code></code></pre>
+</div>
+
+</div>

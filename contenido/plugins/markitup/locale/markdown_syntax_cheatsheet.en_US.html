@@ -1,16 +1,22 @@
+<div class="cheatsheet">
+
+<h3>Cheatsheet</h3>
+
+<p>Full syntax description available at <a href="http://daringfireball.net/projects/markdown/syntax" class="linkExternal" onclick="window.open(this.href);return false;">Markdown</a> page.</p>
+
 <div class="block">
 <strong>Phrase Emphasis</strong>
 <pre><code>*italic*   **bold**
 _italic_   __bold__
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Links</strong>
 <p>Inline:</p>
 <pre><code>An [example](http://url.com/ "Title")
 </code></pre>
-
 <p>Reference-style labels (titles are optional):</p>
 <pre><code>An [example][id]. Then, anywhere
 else in the doc, define the link:
@@ -18,19 +24,20 @@ else in the doc, define the link:
 [id]: http://example.com/  "Title"
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Images</strong>
 <p>Inline (titles are optional):</p>
 <pre><code>![alt text](/path/img.jpg "Title")
 </code></pre>
-
 <p>Reference-style:</p>
 <pre><code>![alt text][id]
 
 [id]: /url/to/img.jpg "Title"
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Headers</strong>
@@ -41,7 +48,6 @@ else in the doc, define the link:
 Header 2
 --------
 </code></pre>
-
 <p>atx-style (closing #'s are optional):</p>
 <pre><code># Header 1 #
 
@@ -50,6 +56,7 @@ Header 2
 ###### Header 6
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Lists</strong>
@@ -57,7 +64,6 @@ Header 2
 <pre><code>1.  Foo
 2.  Bar
 </code></pre>
-
 <p>Unordered, with paragraphs:</p>
 <pre><code>*   A list item.
 
@@ -65,7 +71,6 @@ With multiple paragraphs.
 
 *   Bar
 </code></pre>
-
 <p>You can nest them:</p>
 <pre><code>*   Abacus
 * ass
@@ -77,6 +82,7 @@ With multiple paragraphs.
 *   Cunning
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Blockquotes</strong>
@@ -86,11 +92,12 @@ With multiple paragraphs.
 &gt; &gt; And, they can be nested.
 
 &gt; #### Headers in blockquotes
-&gt; 
+&gt;
 &gt; * You can quote a list.
 &gt; * Etc.
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Code Spans</strong>
@@ -101,6 +108,7 @@ You can include literal backticks
 like `` `this` ``.
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Preformatted Code Blocks</strong>
@@ -111,6 +119,7 @@ This is a preformatted
 code block.
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Horizontal Rules</strong>
@@ -122,11 +131,14 @@ code block.
 - - - -
 </code></pre>
 </div>
+<hr />
 
 <div class="block">
 <strong>Manual Line Breaks</strong>
 <p>End a line with two or more spaces:</p>
-<pre><code>Roses are red,   
+<pre><code>Roses are red,
 Violets are blue.
 </code></pre>
+</div>
+
 </div>

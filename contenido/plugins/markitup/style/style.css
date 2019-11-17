@@ -1,0 +1,33 @@
+/**
+ * Project:
+ * CONTENIDO Content Management System
+ *
+ * Description:
+ * markItUp plug in styles
+ *
+ *
+ * @package     Plugin_markItUp
+ * @subpackage  Inside_Editing
+ * @author      Murat Purc <murat@purc.de>
+ * @license     http://www.gnu.org/licenses/gpl-2.0.html - GNU General Public License, version 2
+ * @version     $Id: $
+ */
+
+body             {background:none; padding-top:10px;}
+img              {border:none;}
+.markitupWrap   {}
+.extBottomDist {padding-bottom:12px;}
+td.col-I         {vertical-align:top; width:79%;}
+td.col-II        {vertical-align:top; width:19%;}
+td.col-II .cheatsheet {padding:5px 0 0 5px;}
+.markItUp {border:none; margin:0; width:100%;}
+.markItUp .markItUpHeader li.code {width:22px;height:22px;}
+.markitupActions {margin: 10px 0 0 0;}
+
+.markItUpEditor {padding:0; border:none; border-top:1px solid #3C769D; display:block; width:100%; background-image:none; background-color:#fafafa;}
+
+.cheatsheet p {margin-bottom:0.5em;}
+.cheatsheet pre {margin-top:0.5em;}
+.cheatsheet a.linkExternal,
+.cheatsheet a.linkExternal:link,
+.cheatsheet a.linkExternal:hover {color:#3c769d;}
