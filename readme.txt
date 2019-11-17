@@ -1,4 +1,4 @@
-markItUp! Plugin 0.0.1_beta für Contenido 4.8.x
+markItUp! Plugin 0.0.1_beta2 für Contenido Contenido 4.8.x
 
 ####################################################################################################
 TOC (Table of contents)
@@ -37,20 +37,21 @@ Momentan bietet das Plugin Unterstützung für folgende Markups:
 ####################################################################################################
 CHANGELOG
 
-2009-01-02: markItUp! Plugin 0.0.1_beta for Contenido 4.8.x
+2009-02-12: markItUp! Plugin 0.0.1_beta2 (for Contenido 4.8.x)
+    * new: Added preview CSS file
+    * change: Modified Texy markup set
+
+2009-01-02: markItUp! Plugin 0.0.1_beta (for Contenido 4.8.x)
     * new: Added markup preview parser
     * bugfix: Corrected Wiki markup set configuration and severeal minor fixes
 
-2008-12-26: markItUp! Plugin 0.0.1_alpha for Contenido 4.8.x
+2008-12-26: markItUp! Plugin 0.0.1_alpha (for Contenido 4.8.x)
     * First alpha release
 
 
 
 ####################################################################################################
 BEKANNTE PROBLEME
-
-Das Parsen von Texy-Markup funktioniert noch nicht richtig, eingegebene Inhalte werden nicht korrekt  
-in HTML umgewandelt.
 
 Es werden nicht alle Tags der Markupsprachen unterstützt, möglich sind einfache Tags wie Überschriften,
 Fett, Kursiv, Unterstrichen, Listen, Links, Bilder, usw.
@@ -112,6 +113,11 @@ modules:
 --------
 Enthält exportierte Module im XML-Format. Diese Exportdateien können im Contenido Backend unter 
 "Style -> Module" importiert werden.
+
+
+cms/css/style_markitup.css:
+---------------------------
+Stylesheet Datei für die Vorschau.
 
 
 contenido/plugins/markitup/*:

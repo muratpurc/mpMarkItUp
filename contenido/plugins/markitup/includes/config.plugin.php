@@ -23,6 +23,8 @@ if (isset($GLOBALS['contenido'])) {
 
     $cfg['markitup']['emoticon_path'] = $mIU_pluginPath . '/_common/images/emoticon/';
 
+    $cfg['markitup']['preview_css_file'] = $GLOBALS['cfgClient'][$GLOBALS['client']]['path']['htmlpath'] . '/css/style_markitup.css';
+
 
     // #############################################################################################
     // BBCODE SET CONFIGURATION
@@ -231,40 +233,31 @@ CODE;
     $cfg['markitup']['sets']['texy']['js_code'] = <<<CODE
 
     markItUpTexySettings = {
-        previewParserPath:	'{PREVIEWPARSERPATH}',
-        onShiftEnter:       {keepDefault:false, replaceWith:'\\n\\n'},
+        previewParserPath:	'{PREVIEWPARSERPATH}', // path to your Texy parser
+        onShiftEnter:	    {keepDefault:false, replaceWith:'\\n\\n'},
         markupSet: [
-            {name:'Heading 1', key:'1', closeWith:function(markItUp) { return miu.texyTitle(markItUp, '#') }, placeHolder:'Your title here...', className:'h1'},
-            {name:'Heading 2', key:'2', closeWith:function(markItUp) { return miu.texyTitle(markItUp, '*') }, placeHolder:'Your title here...', className:'h2'},
-            {name:'Heading 3', key:'3', closeWith:function(markItUp) { return miu.texyTitle(markItUp, '=') }, placeHolder:'Your title here...', className:'h3'},
-            {name:'Heading 4', key:'4', closeWith:function(markItUp) { return miu.texyTitle(markItUp, '-') }, placeHolder:'Your title here...', className:'h4'},
+            {name:'Heading 1', key:'1', closeWith:'\\n#################\\n', placeHolder:'Your title here...', className:'h1'},
+            {name:'Heading 2', key:'2', closeWith:'\\n*****************\\n', placeHolder:'Your title here...', className:'h2'},
+            {name:'Heading 3', key:'3', closeWith:'\\n=================\\n', placeHolder:'Your title here...', className:'h3'},
+            {name:'Heading 4', key:'4', closeWith:'\\n-----------------\\n', placeHolder:'Your title here...', className:'h4'},
             {separator:'---------------' },
-            {name:'Bold', key:'B', closeWith:'**', openWith:'**', className:'bold', placeHolder:'Your text here...'}, 
-            {name:'Italic', key:'I', closeWith:'*', openWith:'*', className:'italic', placeHolder:'Your text here...'}, 
+            {name:'Bold', key:'B', closeWith:'**', openWith:'**', className:'bold', placeHolder:'stuff'}, 
+            {name:'Italic', key:'I', closeWith:'*', openWith:'*', className:'italic', placeHolder:'stuff'}, 
+    // 		{name:'Stroke through', key:'S', closeWith:'--', openWith:'--', className:'stroke', placeHolder:'wrong stuff'}, // defaultly disabled in Texy
             {separator:'---------------' },
-            {name:'Bulleted list', openWith:'- ', className:'list-bullet'}, 
-            {name:'Numeric list', openWith:function(markItUp) { return markItUp.line+'. '; }, className:'list-numeric'}, 
+            {name:'Bulleted list', openWith:'\\n- ', className:'list-bullet'}, 
+            {name:'Numeric list', openWith:'\\n1. ', className:'list-numeric'}, 
             {separator:'---------------' },
-            {name:'Picture', openWith:'[* ', closeWith:' (!(.([![Alt text]!]))!) *]', placeHolder:'[![Url:!:http://]!]', className:'image'}, 
-            {name:'Link', openWith:'"', closeWith:'":[![Url:!:http://]!]', placeHolder:'Your text to link...', className:'link' },
+            {name:'Picture', openWith:'[* ', closeWith:' *]', placeHolder:'[![Source:!:http://]!]', className:'image'}, 
+            {name:'Link', openWith:'"', closeWith:'":[![Address:!:http://]!]', placeHolder:'Linking text', className:'link' },
             {separator:'---------------' },
-            {name:'Quotes', openWith:'> ', className:'quotes'},
-            {name:'Code block/Code in-line', openWith:'(!(/---[![Language:!:html]!]\\n|!|`)!)', closeWith:'(!(\\n\\\\---\\n|!|`)!)', className:'code'},
-            {name:'Texy off', closeWith:'\'\'', openWith:'\'\'', className:'off', placeHolder:'No texty! in here!'},
+            {name:'Quotes', openWith:'> ', className:'quotes'}, // todo: replacement in selection: '\\n' => '\\n> '
+            {name:'Multi-line (block) code', openWith:'\\n/---code\\n', closeWith:'\\n\\\---\\n', className:'code'},
+            {name:'One-line (inline) code', openWith:'`', closeWith:'`', className:'code-inline'},
+            {name:'Turn Texy off', closeWith:'\'\'', openWith:'\'\'', className:'off', placeHolder:'texy off'},
             {separator:'---------------' },
             {name:'Preview', call:'preview', className:'preview'}
         ]
-    }
-
-    miu = {
-        texyTitle: function (markItUp, char) {
-            heading = '';
-            n = $.trim(markItUp.selection || markItUp.placeHolder).length;
-            for(i = 0; i < n; i++)	{
-                heading += char;
-            }
-            return '\\n'+heading;
-        }
     }
 
     $('#texy').markItUp(markItUpTexySettings);

@@ -1,4 +1,4 @@
-####markItUp;0.0.1_beta;Murat Purc;markItUp####
+####markItUp;0.0.1_beta2;Murat Purc;markItUp####
 
 # --------------------------------------------------------
 #

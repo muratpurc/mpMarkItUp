@@ -119,12 +119,19 @@ class Markup_CmsTypeEditing {
         } else {
             $sHTMLCode = 'No preview data!';
         }
+        
+        if ($this->_cfg['markitup']['preview_css_file'] !== '') {
+            $sCssPreview = '<link rel="stylesheet" href="' . $this->_cfg['markitup']['preview_css_file'] . '" type="text/css" media="screen" />';
+        } else {
+            $sCssPreview = '';
+        }
 
         echo <<<PREVIEW
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>markItUp! preview</title>
+    $sCssPreview
     <style type="text/css"><!--
     .markitup_wrap   {margin:10px;}
     // --></style>

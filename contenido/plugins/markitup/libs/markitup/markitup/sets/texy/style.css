@@ -43,6 +43,9 @@
 .markItUp .code a	{
 	background-image:url(images/page_white_code.png);
 }
+.markItUp .code-inline a	{
+	background-image:url(images/page_white_code_red.png);
+}
 .markItUp .off a	{
 	background-image:url(images/disconnect.png);
 }
