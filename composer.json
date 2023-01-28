@@ -1,5 +1,5 @@
 {
-    "name": "purcaholic/mp-markitup",
+    "name": "purc/mp-markitup",
     "type": "contenido-cms-plugin",
     "description": "markItUp! plugin for CONTENIDO CMS",
     "keywords": [
@@ -10,7 +10,7 @@
         "editor",
         "JavaScript"
     ],
-    "homepage": "http://www.purc.de",
+    "homepage": "https://www.purc.de",
     "authors": [
         {
             "name": "Murat Purç",
